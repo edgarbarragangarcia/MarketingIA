@@ -18,19 +18,11 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const { user, signOut } = useAuth();
-  const [isExpanded, setIsExpanded] = useState(false);
-  const sidebarRef = useRef<HTMLDivElement>(null);
-
-  // Manejar eventos de mouse para expandir/colapsar
-  const handleMouseEnter = () => setIsExpanded(true);
-  const handleMouseLeave = () => setIsExpanded(false);
+  const isExpanded = true;
 
   return (
     <div 
-      ref={sidebarRef}
-      className={`flex h-full max-h-screen flex-col gap-2 border-r transition-all duration-300 ${isExpanded ? 'w-64' : 'w-16'}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className={`flex h-full max-h-screen flex-col gap-2 border-r w-64`}
     >
       <div className="flex h-14 items-center border-b px-4 lg:h-[60px] overflow-hidden">
         <Link href="/" className="flex items-center gap-2 font-semibold whitespace-nowrap">
@@ -46,7 +38,7 @@ export function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all whitespace-nowrap ${ 
                 pathname.startsWith(item.href)
-                  ? `text-primary ${!isExpanded ? 'justify-center px-0' : ''}`
+                  ? `text-primary`
                   : 'text-muted-foreground hover:text-primary'
               }`}>
               <item.icon className="h-4 w-4 flex-shrink-0" />
@@ -71,7 +63,7 @@ export function Sidebar() {
               size="icon" 
               onClick={signOut} 
               aria-label="Cerrar sesión"
-              className={`flex-shrink-0 ${!isExpanded ? 'hidden sm:inline-flex' : ''}`}
+              className={`flex-shrink-0`}
             >
               <LogOut className="h-5 w-5 text-muted-foreground" />
             </Button>
